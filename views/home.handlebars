@@ -1,8 +1,8 @@
 <!-- Loop over each object in the projects array -->
 <div class="flex-column justify-content-center">
 {{#each posts as |post| }}
-<a href="/post/{{post.id}}">
-<div class="row mb-4 bg-white border rounded col-9 shadow-sm">
+<a class="m-4" href="/post/{{post.id}}">
+<div class="row bg-white border rounded col-9 shadow-sm">
   <div class="col-md-6">
       <!-- Call helper function with triple brackets to render the emoji span as HTML -->
       {{!-- {{{get_emoji}}} --}}

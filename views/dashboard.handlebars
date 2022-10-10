@@ -4,28 +4,11 @@
   </div>
 </div>
 
-  {{#if posts.length}}
-  <div class="col-md-6 project-list">
-    <h3>Your Posts:</h3>
-
-    {{#each posts as |post|}}
-    <div class="card row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/project/{{post.id}}">{{post.title}}</a></h4>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-
 <div class="row mt-4">
   <div class="card bg-light col-md-6">
     <h3 class="card-title">Create a New Post:</h3>
 
-    <form class="form new-project-form card-body">
+    <form class="form new-post-form card-body">
       <div class="form-group">
         <label for="project-name">Title:</label>
         <input class="form-input" type="text" id="post-title" name="project-name" />
@@ -41,13 +24,30 @@
   </div>
 </div>
 
+  {{#if posts.length}}
+  <div class="col-md-6 project-list">
+    <h3>Your Posts:</h3>
+
+    {{#each posts as |post|}}
+    <div class="card row m-3">
+      <div class="col-8 pt-3">
+        <h4><a href="/project/{{post.id}}">{{post.title}}</a></h4>
+      </div>
+      <div class="w-100 d-flex justify-content-end col-4 pb-3">
+        <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
 <script>
   const newFormHandler = async (event) => {
     event.preventDefault();
 
     const title = document.querySelector('#post-title').value.trim();
     const content = document.querySelector('#post-content').value.trim();
-
+    console.log(JSON.stringify({ title, content }));
     if (title && content) {
       const response = await fetch(`/api/post`, {
         method: 'POST',
@@ -82,10 +82,7 @@
   };
 
   document
-    .querySelector('#create-button')
+    .querySelector('.new-post-form')
     .addEventListener('submit', newFormHandler);
 
-  document
-    .querySelector('.project-list')
-    .addEventListener('click', delButtonHandler);
 </script>

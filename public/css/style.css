@@ -17,6 +17,10 @@ h1 {
     font-weight: 1000;
 }
 
+html {
+    background-color: #657786;
+}
+
 .background {
     background-color: #657786;
 }
