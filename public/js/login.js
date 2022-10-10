@@ -1,54 +1,13 @@
-<div class="row">
-  <div class="col-md-6">
-    <h2>Login</h2>
 
-    <form class="form login-form">
-      <div class="form-group">
-        <label for="user-login">username:</label>
-        <input class="form-input" type="text" id="username-login" />
-      </div>
-      <div class="form-group">
-        <label for="password-login">password:</label>
-        <input class="form-input" type="password" id="password-login" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">login</button>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-6">
-    <h2>Signup</h2>
-
-    <form class="form signup-form">
-      <div class="form-group">
-        <label for="user-signup">username:</label>
-        <input class="form-input" type="text" id="user-signup" />
-      </div>
-      <div class="form-group">
-        <label for="password-signup">password:</label>
-        <input class="form-input" type="password" id="password-signup" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">signup</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<script>
-  console.log('login page');
+  console.log('hello');
 const loginFormHandler = async (event) => {
     event.preventDefault();
-  console.log('login');
   
     // Collect values from the login form
-    const username = document.querySelector('#username-login').value.trim();
+    const username = document.querySelector('#user-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
-    console.log(username, password);
   
     if (username && password) {
-    console.log(username, password);
-
       // Send a POST request to the API endpoint
       const response = await fetch('/api/users/login', {
         method: 'POST',
@@ -67,13 +26,11 @@ const loginFormHandler = async (event) => {
 
   const signupFormHandler = async (event) => {
     event.preventDefault();
-  console.log('signup');
 
     const username = document.querySelector('#user-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
-    console.log(username, password);
+
     if (username && password) {
-    console.log(username, password);
       const response = await fetch('/api/users', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
@@ -95,5 +52,3 @@ console.log(response.ok);
   document
     .querySelector('.signup-form')
     .addEventListener('submit', signupFormHandler);
-
-</script>

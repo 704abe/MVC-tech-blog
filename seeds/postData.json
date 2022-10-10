@@ -1,14 +1,18 @@
 [
     {
         "title": "Why did I get married?",
-        "content": "I'm not sure..."
+        "content": "I'm not sure...",
+        "user_id": 1
+
     },
     {
         "title": "Why the Chicken Crossed the Road...",
-        "content": "I'm not sure..."
+        "content": "I'm not sure...",
+        "user_id": 2
     },
     {
         "title": "Should You Put All Your Eggs in One Basket?",
-        "content": "I'm not sure..."
+        "content": "I'm not sure...",
+        "user_id": 3
     }
 ]

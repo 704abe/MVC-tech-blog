@@ -4,23 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MVC Tech Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+SC&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
   </head>
   <main>
     <body>
-      <div class="">
-
-        <header class="">
-          <h1 class="col-4">
-            <a href="/">MVC Tech Blog</a>
+      <div class="background vh-100">
+        <header class="container-fluid d-flex justify-content-between align-items-center bg-dark">
+          <h1 class="col-auto p-3 text-light">
+            <a class="" href="/"><div class="text-reset">MVC Tech Blog</div></a>
           </h1>
-          <nav class="col-8">
+          <nav class="d-flex col-auto p-3 text-light align-items-center">
+            <a class="" href="/dashboard">Dashboard</a>
             <!-- Conditionally render login or logout links -->
             {{#if logged_in}}
-            <a href="/profile">profile</a> |
-            <button class="no-button" id="logout">logout</button>
+            {{!-- <button class="no-button p-3" id="logout">logout</button> --}}
+            <a class="d-flex justify-content-end p-3" style="cursor:pointer" onclick="logout()">Logout</a>
             {{else}}
-            <a href="/login">login</a>
+            <a class="d-flex justify-content-end p-3" href="/login">Login</a>
             {{/if}}
           </nav>
         </header>
@@ -35,9 +37,9 @@
       </div>
 
   <!-- Render script for logged in users only -->
-  {{!-- {{#if logged_in}}
+  {{#if logged_in}}
   <script src="/js/logout.js"></script>
-  {{/if}} --}}
+  {{/if}}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     </body>
   </main>

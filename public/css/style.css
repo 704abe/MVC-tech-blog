@@ -1,0 +1,22 @@
+p {
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+h1 {
+    font-family: 'Encode Sans SC', sans-serif;
+    font-weight: 1000;
+}
+
+.background {
+    background-color: #657786;
+}

@@ -4,35 +4,12 @@
   </div>
 </div>
 
-<div class="row mt-4">
-  <div class="col-md-6">
-    <h3>Create a New Project:</h3>
-
-    <form class="form new-project-form">
-      <div class="form-group">
-        <label for="project-name">project name:</label>
-        <input class="form-input" type="text" id="project-name" name="project-name" />
-      </div>
-      <div class="form-group">
-        <label for="project-funding">needed funding ($):</label>
-        <input class="form-input" type="number" id="project-funding" name="project-funding" />
-      </div>
-      <div class="form-group">
-        <label for="project-desc">description:</label>
-        <textarea class="form-input" id="project-desc" name="project-desc"></textarea>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </div>
-
   {{#if posts.length}}
   <div class="col-md-6 project-list">
-    <h3>Current Projects:</h3>
+    <h3>Your Posts:</h3>
 
     {{#each posts as |post|}}
-    <div class="row mb-2">
+    <div class="card row mb-2">
       <div class="col-md-8">
         <h4><a href="/project/{{post.id}}">{{post.title}}</a></h4>
       </div>
@@ -43,4 +20,72 @@
     {{/each}}
   </div>
   {{/if}}
+
+<div class="row mt-4">
+  <div class="card bg-light col-md-6">
+    <h3 class="card-title">Create a New Post:</h3>
+
+    <form class="form new-project-form card-body">
+      <div class="form-group">
+        <label for="project-name">Title:</label>
+        <input class="form-input" type="text" id="post-title" name="project-name" />
+      </div>
+      <div class="form-group">
+        <label for="project-desc">Content:</label>
+        <textarea class="form-input" id="post-content" name="project-desc"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" id="create-button" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
 </div>
+
+<script>
+  const newFormHandler = async (event) => {
+    event.preventDefault();
+
+    const title = document.querySelector('#post-title').value.trim();
+    const content = document.querySelector('#post-content').value.trim();
+
+    if (title && content) {
+      const response = await fetch(`/api/post`, {
+        method: 'POST',
+        body: JSON.stringify({ title, content }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        document.location.replace('/dashboard');
+      } else {
+        alert('Failed to create post');
+      }
+    }
+  };
+
+  const delButtonHandler = async (event) => {
+    if (event.target.hasAttribute('data-id')) {
+      const id = event.target.getAttribute('data-id');
+
+      const response = await fetch(`/api/projects/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        document.location.replace('/profile');
+      } else {
+        alert('Failed to delete project');
+      }
+    }
+  };
+
+  document
+    .querySelector('#create-button')
+    .addEventListener('submit', newFormHandler);
+
+  document
+    .querySelector('.project-list')
+    .addEventListener('click', delButtonHandler);
+</script>

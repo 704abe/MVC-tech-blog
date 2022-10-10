@@ -4,6 +4,14 @@ const withAuth = require('../../utils/auth');
 
 // endpoint for /api/post
 
+router.get('/', async (req, res) => {
+  try{
+    const allPosts = await Post.findAll();
+    res.json(allPosts);
+  } catch (err) {
+    res.status(400).json(err)
+  }
+})
 
 router.post('/', withAuth, async (req, res) => {
   try {
