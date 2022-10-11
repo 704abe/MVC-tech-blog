@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
     let existingUser = await User.findOne({ where: { username: req.body.username } });
     console.log(existingUser);
     if (existingUser) {
-      console.log('There is already a user with this username. Please choose another.');
       return json({ message: 'There is already a user with this username. Please choose another.' });
     }
     const userData = await User.create(req.body);

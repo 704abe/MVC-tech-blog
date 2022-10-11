@@ -1,75 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="bg-dark" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MVC Tech Blog</title>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+SC&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
-  <main>
-    <body>
-      <div class="background vh-100">
-        <header class="container-fluid d-flex justify-content-between align-items-center bg-dark">
-          <h1 class="col-auto p-3 text-light">
-            <a class="" href="/"><div class="text-reset">MVC Tech Blog</div></a>
-          </h1>
-          <nav class="d-flex col-auto p-3 text-light align-items-center">
-            <a class="" href="/dashboard">Dashboard</a>
-            <!-- Conditionally render login or logout links -->
-            {{#if logged_in}}
-            {{!-- <button class="no-button p-3" id="logout">logout</button> --}}
-            <a class="d-flex justify-content-end p-3" style="cursor:pointer" onclick="logout()">Logout</a>
-            {{else}}
-            <a class="d-flex justify-content-end p-3" href="/login">Login</a>
-            {{/if}}
-          </nav>
-        </header>
+    <body class="bigbody" >
+      <div class="background">
+        <div class="content-wrap pb" >
+          <header class="container-fluid d-flex justify-content-between align-items-center bg-dark">
+            <h1 class="col-auto text-light">
+              <a class="MVC" href="/"><div class="text-reset">MVC Tech Blog</div></a>
+            </h1>
+            <nav class="d-flex col-auto p-3 text-light justify-content-between align-items-center">
+              <a class="" href="/dashboard">Dashboard</a>
+              <!-- Conditionally render login or logout links -->
+              {{#if logged_in}}
+              {{!-- <button class="no-button p-3" id="logout">logout</button> --}}
+              <a class="d-flex justify-content-end p-3" style="cursor:pointer" onclick="logout()">Logout</a>
+              {{else}}
+              <a class="d-flex justify-content-end p-3" href="/login">Login</a>
+              {{/if}}
+            </nav>
+          </header>
 
-        <main class="container container-fluid mt-5">
-          <!-- Render the sub layout -->
-          {{{ body }}}
-        </main>
-        <footer>
-          <div class="container-fluid my-5 p-0">
-
-  <section class="">
-  <!-- Footer -->
-  <footer class="text-center text-white bg-dark">
-    <!-- Grid container -->
-    <div class="container p-4 pb-0">
-      <!-- Section: CTA -->
-      <section class="">
-        <p class="d-flex justify-content-center align-items-center">
-          <span class="me-3">
-              <a href="#">Back to Top</a>
-          </span>
-        </p>
-      </section>
-      <!-- Section: CTA -->
-    </div>
-    <!-- Grid container -->
-
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      <a class="text-white" href="https://github.com/704abe/MVC-tech-blog" target="_blank" >📁 GitHub Repository</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
-</section>
-  
-</div>
-        </footer>
-      </div>
-
+          <main class="row container-fluid d-flex justify-content-center mt-5 p-3">
+            <!-- Render the sub layout -->
+            {{{ body }}}
+          </main>
+        </div>
   <!-- Render script for logged in users only -->
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    </body>
-  </main>
+      <div class="">
+        <section id="footer">
+          <footer class="text-center text-white bg-dark">
+            <div class="container p-4 pb-0">
+              <section class="">
+                <p class="d-flex justify-content-center align-items-center">
+                  <span class="me-3">
+                      <a href="#">Back to Top</a>
+                  </span>
+                </p>
+              </section>
+            </div>
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              <a class="text-white" href="https://github.com/704abe/MVC-tech-blog" target="_blank" >📁 GitHub Repository</a>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </div>
+  </body>
 </html>
