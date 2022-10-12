@@ -17,8 +17,9 @@
             <h1 class="col-auto text-light">
               <a class="MVC" href="/"><div class="text-reset">MVC Tech Blog</div></a>
             </h1>
-            <nav class="d-flex col-auto p-3 text-light justify-content-between align-items-center">
-              <a class="" href="/dashboard">Dashboard</a>
+            <nav class="d-flex col-12 col-sm-auto p-3 text-light justify-content-between align-items-center">
+              <a class="p-3" href="/">Home</a>
+              <a class="p-3" href="/dashboard">Dashboard</a>
               <!-- Conditionally render login or logout links -->
               {{#if logged_in}}
               {{!-- <button class="no-button p-3" id="logout">logout</button> --}}
@@ -29,7 +30,7 @@
             </nav>
           </header>
 
-          <main class="row container-fluid d-flex justify-content-center mt-5 p-3">
+          <main class="row container-fluid d-flex justify-content-center mt-1 p-3">
             <!-- Render the sub layout -->
             {{{ body }}}
           </main>
@@ -45,9 +46,13 @@
             <div class="container p-4 pb-0">
               <section class="">
                 <p class="d-flex justify-content-center align-items-center">
-                  <span class="me-3">
-                      <a href="#">Back to Top</a>
-                  </span>
+                  <div class="">
+                    <a onclick="history.back()">Back</a>
+                    <a> • </a>
+                    <a href="#">Back to Top</a>
+                    <a> • </a>
+                    <a onclick="location.reload()" style="cursor: pointer;">Refresh</a>
+                  </div>
                 </p>
               </section>
             </div>

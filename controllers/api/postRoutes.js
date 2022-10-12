@@ -11,7 +11,19 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(400).json(err)
   }
-})
+});
+
+router.get('/:id', async (req, res) => {
+  try{
+    console.log(req.params.id)
+    const singlePost = await Post.findAll({
+      where: { id : req.params.id }
+    });
+    res.json(singlePost);
+  } catch (err) {
+    res.status(400).json(err)
+  }
+});
 
 router.post('/', withAuth, async (req, res) => {
   try {

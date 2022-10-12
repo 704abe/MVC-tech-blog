@@ -1,88 +1,75 @@
-<div class="row">
-  <div class="col-auto">
-    <h2>Welcome, {{username}}!</h2>
-  </div>
-</div>
-
-<div class="row mt-4">
-  <div class="card bg-light col-md-6">
-    <h3 class="card-title">Create a New Post:</h3>
-
-    <form class="form new-post-form card-body">
-      <div class="form-group">
-        <label for="project-name">Title:</label>
-        <input class="form-input" type="text" id="post-title" name="project-name" />
-      </div>
-      <div class="form-group">
-        <label for="project-desc">Content:</label>
-        <textarea class="form-input" id="post-content" name="project-desc"></textarea>
-      </div>
-      <div class="form-group">
-        <button type="submit" id="create-button" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-  {{#if posts.length}}
-  <div class="col-md-6 project-list">
-    <h3>Your Posts:</h3>
-
-    {{#each posts as |post|}}
-    <div class="card row m-3">
-      <div class="col-8 pt-3">
-        <h4><a href="/project/{{post.id}}">{{post.title}}</a></h4>
-      </div>
-      <div class="w-100 d-flex justify-content-end col-4 pb-3">
-        <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
-      </div>
+<div class="dashboard-wrapper">
+  <div class="row d-flex justify-content-center">
+    <div class="card col-auto">
+      <h2>Welcome, {{username}}!</h2>
     </div>
-    {{/each}}
   </div>
-  {{/if}}
 
-<script>
-  const newFormHandler = async (event) => {
-    event.preventDefault();
+  <div class="container-fluid row mt-4 d-flex justify-content-center">
+    <div class="card bg-light col-12 bg-light">
+      <h3 class="card-title p-3">Create a New Post:</h3>
 
-    const title = document.querySelector('#post-title').value.trim();
-    const content = document.querySelector('#post-content').value.trim();
-    console.log(JSON.stringify({ title, content }));
-    if (title && content) {
-      const response = await fetch(`/api/post`, {
-        method: 'POST',
-        body: JSON.stringify({ title, content }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      <form class="form new-post-form card-body">
+        <div class="form-group">
+          <input class="form-input form-control" type="text" id="post-title" name="project-name" placeholder="Title" />
+        </div>
+        <div class="form-group">
+          <textarea class="form-input form-control" id="post-content" name="project-desc" rows="3" placeholder="Content"></textarea>
+        </div>
+        <div class="form-group d-flex justify-content-center p-3">
+          <button type="submit" id="create-button" class="btn btn-primary">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-      if (response.ok) {
-        document.location.replace('/dashboard');
-      } else {
-        alert('Failed to create post');
-      }
-    }
-  };
+  <div class="row container-fluid d-flex justify-content-center mt-5">
 
-  const delButtonHandler = async (event) => {
-    if (event.target.hasAttribute('data-id')) {
-      const id = event.target.getAttribute('data-id');
+    <div class="col-12 col-lg-6 post-list">
+      <div class="card col-auto p-1 m-3 bg-dark text-center">
+        <h3 class="text-light">Your Posts</h3>
+      </div>
+    {{#if posts.length}}
+      {{#each posts as |post|}}
+      <div class="list-dashboard card row m-3">
+          <div class="col-8 pt-3">
+            <h4>{{post.title}}</h4>
+          </div>
+        <div class="w-100 d-flex justify-content-end col-4 pb-3">
+          <div>
+            <button class="list-view btn btn-sm btn-secondary"><a class="" href="/post/{{post.id}}">VIEW</a></button>
+            <button class="post-update list-update btn btn-sm btn-warning" data-id="{{post.id}}">UPDATE</button>
+            <button class="post-delete list-delete btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    {{/if}}
+    </div>
 
-      const response = await fetch(`/api/projects/${id}`, {
-        method: 'DELETE',
-      });
+    <div class="col-12 col-lg-6 comment-list">
+      <div class="card col-auto p-1 m-3 bg-dark text-center">
+        <h3 class="text-light">Your Comments</h3>
+      </div>
+    {{#if posts.length}}
+      {{#each comments as |comment|}}
+        <div class="list-dashboard card row m-3">
+          <div class="col-8 pt-3">
+            <p class="fw-bold">{{comment.content}}</p>
+          </div>
+          <div class="w-100 d-flex justify-content-end col-4 pb-3">
+            <div>
+              <button class="list-view btn btn-sm btn-secondary"><a class="" href="/post/{{comment.post_id}}">VIEW</a></button>
+              <button class="comment-update list-update btn btn-sm btn-warning" data-id="{{comment.id}}">UPDATE</button>
+              <button class="comment-delete list-delete btn btn-sm btn-danger" data-id="{{comment.id}}">DELETE</button>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+    </div>
 
-      if (response.ok) {
-        document.location.replace('/profile');
-      } else {
-        alert('Failed to delete project');
-      }
-    }
-  };
+  </div>
+</div>
 
-  document
-    .querySelector('.new-post-form')
-    .addEventListener('submit', newFormHandler);
-
-</script>
+<script src="/js/dashboard.js"></script>
