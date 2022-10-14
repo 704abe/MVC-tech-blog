@@ -28,7 +28,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', withAuth, async (req, res) => {
   try {
-    if(req.session) {
       const newComment = await Comment.create({
         content: req.body.content,
         user_id: req.session.user_id,
@@ -36,7 +35,6 @@ router.post('/', withAuth, async (req, res) => {
       });
       console.log('commentRoutes line 24', newComment);
       res.status(200).json(newComment);
-    }
   } catch (err) {
     res.status(400).json(err);
   }

@@ -1,19 +1,17 @@
-<!-- Loop over each object in the projects array -->
+<!-- homepage -->
 <div class="home-wrapper col-12 d-flex flex-column flex-xxl-row justify-content-between">
   <div class="home-left row">
     <div class="card col-12 p-1 m-4 bg-dark text-center">
       <h3 class="text-light">All Posts</h3>
     </div>
+    {{!-- all posts list --}}
     <div class="flex-column justify-content-center">
     {{#each posts as |post| }}
     <div class="eachPost row bg-white border rounded col-12 m-4 pt-1">
       <a class="" href="/post/{{post.id}}">
       <div class="col-12">
-          <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-          {{!-- {{{get_emoji}}} --}}
-            <h2>{{post.title}}</h2>
+        <h2>{{post.title}}</h2>
         <p>
-          <!-- Pass needed_funding value to the helper function -->
           <span class="text-muted">{{post.content}}</span>
         </p>
         <p>Created by {{user.username}} on {{format_date post.date_created}}</p>
@@ -29,6 +27,7 @@
     {{/each}}
     </div>
   </div>
+  {{!-- site info card --}}
   <div class="home-right col-xxl-4 col-12 d-flex flex-column">
     <div class="d-flex">
       <div class="card m-4">
@@ -38,7 +37,9 @@
         <div class="card-body">
           <p class="text-muted">This is a place where you can communicate with other MVC enthusiasts to share ideas, solve problems, or engage in heated debates!</p>
           <br>
-          <p class="text-muted">Please adhere to our Community Guidelines and Terms of Service, (only available through word of mouth) as bans are as permanent as they are shameful</p>
+          <p class="text-muted">Please adhere to our Community Guidelines and Terms of Service (only available through word of mouth). Bans are as permanent as they are shameful</p>
+          <br>
+          <p class="text-muted">We have noticed most of the posts on this blog have nothing to do with MVC, or even tech. Please stick to the topic.</p>
         </div>
       </div>
     </div>
