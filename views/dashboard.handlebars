@@ -9,6 +9,7 @@
     <div class="card bg-light col-12 bg-light">
       <h3 id="post-card-title" class="card-title p-3">Create a New Post:</h3>
 
+{{!-- create new post form --}}
       <form id="create-form" class="form new-post-form card-body">
         <div class="form-group">
           <input class="form-input form-control mb-3" type="text" id="post-title" name="project-name" placeholder="Title" />
@@ -21,16 +22,28 @@
         </div>
       </form>
 
-            <form id="update-form" class="form update-post-form display-none card-body">
+{{!-- update post form --}}
+      <form id="update-form" class="form update-post-form display-none card-body">
         <div class="form-group">
-          <input class="form-input form-control mb-3" type="text" id="post-title" name="project-name" placeholder="Title" />
+          <input class="form-input form-control mb-3" type="text" id="update-title" name="project-name" placeholder="Title" />
         </div>
         <div class="form-group">
-          <textarea class="form-input form-control" id="post-content" name="project-desc" rows="3" placeholder="Content"></textarea>
+          <textarea class="form-input form-control" id="update-content" name="update-desc" rows="3" placeholder="Content"></textarea>
         </div>
         <div class="form-group d-flex justify-content-center p-3">
           <button type="submit" id="update-button" class="btn btn-primary m-3">Update</button>
           <button type="submit" id="cancel-button" class="btn btn-secondary  m-3">Cancel</button>
+        </div>
+      </form>
+
+{{!-- update comment form --}}
+      <form id="update-comment-form" class=" display-none">
+        <div class="form-group">
+          <textarea class="form-input form-control" id="update-comment" name="update-content" rows="3" placeholder="Updated comment"></textarea>
+        </div>
+        <div class="form-group d-flex justify-content-center p-3">
+          <button type="submit" id="" class="update-comment-button btn btn-primary m-3">Update</button>
+          <button type="submit" id="comment-cancel-button" class="btn btn-secondary  m-3">Cancel</button>
         </div>
       </form>
 

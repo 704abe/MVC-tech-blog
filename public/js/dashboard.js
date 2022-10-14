@@ -40,24 +40,22 @@ const postDeleteHandler = async (event) => {
   event.preventDefault();
   console.log('delete post');
 
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
-    const response = await fetch(`/api/post/${id}`, {
-      method: 'DELETE',
-    });
+  const id = event.target.getAttribute('data-id');
+  const response = await fetch(`/api/post/${id}`, {
+    method: 'DELETE',
+  });
 
-    if (response.ok) {
-      document.location.replace('/dashboard');
-    } else {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Failed to delete post',
-        showConfirmButton: true,
-        timer: 1500,
-        confirmButtonColor: '#0d6efd'
-      }); 
-    }
+  if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Failed to delete post',
+      showConfirmButton: true,
+      timer: 1500,
+      confirmButtonColor: '#0d6efd'
+    }); 
   }
 };
 
@@ -66,6 +64,7 @@ const commentDeleteHandler = async (event) => {
 
   event.preventDefault();
   console.log(event);
+  
   try {  
     if (event.target.hasAttribute('data-id')) {
       const id = event.target.getAttribute('data-id');
@@ -106,14 +105,27 @@ const handleGetPost = async (event) => {
     let title = data.title;
     let content = data.content;
 
-    document.querySelector('#post-title').setAttribute('data-id', id);
-    document.querySelector('#post-title').value = title;
-    document.querySelector('#post-content').value = content;
+    let createForm = document.getElementById('create-form');
+    let updateForm = document.getElementById('update-form');
+    let commentForm = document.getElementById('update-comment-form');
+
+
+    if(!createForm.classList.contains('display-none')) {
+      createForm.classList.add('display-none');
+    }
+  
+    if(updateForm.classList.contains('display-none')) {
+      updateForm.classList.remove('display-none');
+    }
+  
+    if(!commentForm.classList.contains('display-none')) {
+      commentForm.classList.add('display-none');
+    }
+
+    document.querySelector('#update-title').setAttribute('data-id', id);
+    document.querySelector('#update-title').value = title;
+    document.querySelector('#update-content').value = content;
     document.querySelector('#post-card-title').textContent = 'Update Post:';
-    document.querySelector('#update-form').classList.remove('display-none');
-    document.querySelector('#create-form').classList.add('display-none');
-    // document.querySelector('#update-button').classList.remove('display-none');
-    // document.querySelector('#cancel-button').classList.remove('display-none');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -125,9 +137,9 @@ const handleGetPost = async (event) => {
 
 const handlePostUpdate = async () => {
   console.log('handlePostUpdate');
-  const id = document.querySelector('#post-title').getAttribute('data-id');
-  let title = document.querySelector('#post-title').value
-  let content = document.querySelector('#post-content').value
+  let id = document.querySelector('#update-title').getAttribute('data-id');
+  let title = document.querySelector('#update-title').value
+  let content = document.querySelector('#update-content').value
 
   try {
     fetch(`/api/post/${id}`, {
@@ -137,11 +149,63 @@ const handlePostUpdate = async () => {
         'Content-Type': 'application/json',
       },
     }).then(console.log('put request'))
-
+    
   } catch (err) {
     console.log(err);
   }
 };
+
+const handleGetComment = async(event) => {
+  event.preventDefault();
+  console.log('update comment');
+  let createForm = document.getElementById('create-form');
+  let updateForm = document.getElementById('update-form');
+  let commentForm = document.getElementById('update-comment-form');
+
+  if(!createForm.classList.contains('display-none')) {
+    createForm.classList.add('display-none');
+  }
+
+  if(!updateForm.classList.contains('display-none')) {
+    updateForm.classList.add('display-none');
+  }
+
+  if(commentForm.classList.contains('display-none')) {
+    commentForm.classList.remove('display-none');
+  }
+
+  let id = event.target.getAttribute('data-id');
+  document.querySelector('#update-comment').setAttribute('data-id', id);
+
+  await fetch(`/api/comment/${id}`, {
+    method: 'GET'
+  }).then(result => result.json()).then(result => {
+    let commentData = result;
+    commentId = commentData.id;
+    content = commentData.content;
+
+    document.querySelector('#post-card-title').textContent = 'Update Comment:';
+    document.querySelector('#update-comment').textContent = content;
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    document.querySelector('#comment-cancel-button').addEventListener('click', () => location.reload)
+    document.querySelector('.update-comment-button').addEventListener('click', handleCommentUpdate)
+  })
+}
+
+const handleCommentUpdate = () => {
+  let id = document.querySelector('#update-comment').getAttribute('data-id')
+  let content = document.querySelector('#update-comment').value
+
+  fetch(`/api/comment/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ content }),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }).then(result => console.log(result))
+}
 
 document
   .querySelector('.new-post-form')
@@ -166,5 +230,5 @@ postUpdateList.forEach(post => {
 });
 
 commentUpdateList.forEach(comment => {
-  comment.addEventListener('click', commentDeleteHandler)
+  comment.addEventListener('click', handleGetComment)
 });

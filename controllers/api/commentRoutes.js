@@ -13,6 +13,19 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+
+  Comment.findOne({
+    where: {id: req.params.id}
+  }).then(
+    singleComment => res.json(singleComment)
+  ).catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+})
+
+
 router.post('/', withAuth, async (req, res) => {
   try {
     if(req.session) {
@@ -30,9 +43,12 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 router.put('/:id', withAuth, async (req, res) => {
+  console.log(req.params.id, req.body)
     try {
       const updatedComment = await Comment.update({
-        ...req.body,
+        content: req.body.content,
+      },
+      {
         where: {
             id: req.params.id
         }
