@@ -1,5 +1,5 @@
 console.log('dashboard');
-
+// create post function
 const newFormHandler = async (event) => {
   console.log('delete button');
   event.preventDefault();
@@ -35,7 +35,7 @@ const newFormHandler = async (event) => {
     }); 
   }
 };
-
+// delete post function
 const postDeleteHandler = async (event) => {
   event.preventDefault();
   console.log('delete post');
@@ -58,7 +58,7 @@ const postDeleteHandler = async (event) => {
     }); 
   }
 };
-
+// delete comment function
 const commentDeleteHandler = async (event) => {
   console.log('delete comment');
 
@@ -90,7 +90,7 @@ const commentDeleteHandler = async (event) => {
     console.log(err)
   }
 };
-
+// gets post content and populates it in text fields
 const handleGetPost = async (event) => {
   event.preventDefault();
   console.log('handleGetPost');
@@ -134,7 +134,7 @@ const handleGetPost = async (event) => {
 })))
 
 }
-
+// submits updated post info
 const handlePostUpdate = async () => {
   console.log('handlePostUpdate');
   let id = document.querySelector('#update-title').getAttribute('data-id');
@@ -154,7 +154,7 @@ const handlePostUpdate = async () => {
     console.log(err);
   }
 };
-
+// gets comment content and populates it in text fields
 const handleGetComment = async(event) => {
   event.preventDefault();
   console.log('update comment');
@@ -193,7 +193,7 @@ const handleGetComment = async(event) => {
     document.querySelector('.update-comment-button').addEventListener('click', handleCommentUpdate)
   })
 }
-
+// submits updated comment info
 const handleCommentUpdate = () => {
   let id = document.querySelector('#update-comment').getAttribute('data-id')
   let content = document.querySelector('#update-comment').value
@@ -206,7 +206,7 @@ const handleCommentUpdate = () => {
     }
   }).then(result => console.log(result))
 }
-
+// event listeners for create/update/delete buttons and form submits
 document
   .querySelector('.new-post-form')
   .addEventListener('submit', newFormHandler);

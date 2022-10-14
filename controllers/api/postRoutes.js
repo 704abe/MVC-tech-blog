@@ -4,6 +4,7 @@ const withAuth = require('../../utils/auth');
 
 // endpoint for /api/post
 
+// returns all posts (home)
 router.get('/', async (req, res) => {
   try {
     const allPosts = await Post.findAll();
@@ -13,6 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// returns post by id (post)
 router.get('/:id', async (req, res) => {
   try {
     console.log(req.params.id)
@@ -25,6 +27,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// new post route (dashboard)
 router.post('/', withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
@@ -38,6 +41,7 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
+// post update route (dashboard)
 router.put('/:id', withAuth, async (req, res) => {
   Post.update({
     title: req.body.title,
@@ -55,6 +59,7 @@ router.put('/:id', withAuth, async (req, res) => {
   })
 });
 
+// post delete route (dashboard)
 router.delete('/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.destroy({

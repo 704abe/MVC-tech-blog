@@ -1,3 +1,4 @@
+// comment submit function
 const handleCommentSubmit = async (event) => {
     console.log(event);
     event.preventDefault();
@@ -30,4 +31,5 @@ const handleCommentSubmit = async (event) => {
     }
   }
 
+// comment form submit event listener
   document.querySelector('.comment-form').addEventListener('submit', handleCommentSubmit)

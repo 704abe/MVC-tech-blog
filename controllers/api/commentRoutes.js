@@ -4,6 +4,7 @@ const withAuth = require('../../utils/auth');
 
 // endpoint for /api/comment
 
+// returns all comments (backend use)
 router.get('/', async (req, res) => {
   try {
     const allComments = await Comment.findAll();
@@ -13,6 +14,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// returns one comment (backend use)
 router.get('/:id', async (req, res) => {
 
   Comment.findOne({
@@ -25,7 +27,7 @@ router.get('/:id', async (req, res) => {
   })
 })
 
-
+// comment post route (post)
 router.post('/', withAuth, async (req, res) => {
   try {
       const newComment = await Comment.create({
@@ -40,6 +42,7 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
+// comment update route (dashboard)
 router.put('/:id', withAuth, async (req, res) => {
   console.log(req.params.id, req.body)
     try {
@@ -58,6 +61,7 @@ router.put('/:id', withAuth, async (req, res) => {
     }
   });
 
+// comment delete route (dashboard)
 router.delete('/:id', withAuth, async (req, res) => {
   try {
     console.log('delete request', req);

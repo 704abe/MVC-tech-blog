@@ -20,7 +20,7 @@
       });
   
       if (response.ok) {
-        // If successful, redirect the browser to the profile page
+        // If successful, redirect the browser to the dashboard page
         document.location.replace('/dashboard');
       } else {
         Swal.fire({
@@ -48,18 +48,20 @@
   const signupFormHandler = async (event) => {
     event.preventDefault();
   console.log('signup');
-
+    // Collect values from the signup form
     const username = document.querySelector('#user-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
     console.log(username, password);
     if (username && password) {
       console.log('if', username, password);
+      // Send a POST request to the API endpoint
       const response = await fetch('/api/users', {
         method: 'POST',
         body: JSON.stringify({ username, password }),
         headers: { 'Content-Type': 'application/json' },
       });
       console.log(response.ok);
+      // If successful, redirect the browser to the dashboard page
       if (response.ok) {
         document.location.replace('/dashboard');
       } else {
@@ -84,7 +86,7 @@
     }) 
   };
 }
-
+// event listeneres for login/signup form submits
   document
     .querySelector('.login-form')
     .addEventListener('submit', loginFormHandler);

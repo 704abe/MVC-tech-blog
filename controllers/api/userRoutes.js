@@ -3,6 +3,7 @@ const { User } = require('../../models');
 
 // endpoint for /api/users
 
+// finds all users (backend use)
 router.get('/', async (req, res) => {
   try {
   let allUsers = await User.findAll()
@@ -12,6 +13,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+// signup route
 router.post('/', async (req, res) => {
   console.log(req.body);
   try {
@@ -34,6 +36,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// login route
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { username: req.body.username } });
@@ -66,6 +69,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// logout route
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
@@ -76,6 +80,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
+// delete route
 router.delete('/:id', async (req, res) => {
   try {
     let deletedUser = await User.destroy( { where: { id: req.params.id } } );
