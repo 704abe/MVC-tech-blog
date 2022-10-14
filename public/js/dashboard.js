@@ -1,14 +1,14 @@
-// const { Post } = require("../../models");
-
 console.log('dashboard');
-console.log(document.querySelector('#comment-delete'));
+
 const newFormHandler = async (event) => {
   console.log('delete button');
   event.preventDefault();
-
+  console.log(event.target);
   const title = document.querySelector('#post-title').value.trim();
   const content = document.querySelector('#post-content').value.trim();
+
   console.log(JSON.stringify({ title, content }));
+
   if (title && content) {
     const response = await fetch(`/api/post`, {
       method: 'POST',
@@ -72,7 +72,7 @@ const commentDeleteHandler = async (event) => {
       const response = await fetch(`/api/comment/${id}`, {
         method: 'DELETE',
       });
-
+      console.log(response.ok)
       if (response.ok) {
         event.target.remove();
         document.location.replace('/dashboard');
@@ -92,51 +92,79 @@ const commentDeleteHandler = async (event) => {
   }
 };
 
-const handlePostUpdate = async (event) => {
+const handleGetPost = async (event) => {
   event.preventDefault();
+  console.log('handleGetPost');
+
+  const id = event.target.getAttribute('data-id');
+  
+  await fetch(`/api/post/${id}`, {
+    method: 'GET'
+  }).then(result => console.log(result.json().then(result => {
+    let data = result[0];
+    let id = data.id
+    let title = data.title;
+    let content = data.content;
+
+    document.querySelector('#post-title').setAttribute('data-id', id);
+    document.querySelector('#post-title').value = title;
+    document.querySelector('#post-content').value = content;
+    document.querySelector('#post-card-title').textContent = 'Update Post:';
+    document.querySelector('#update-form').classList.remove('display-none');
+    document.querySelector('#create-form').classList.add('display-none');
+    // document.querySelector('#update-button').classList.remove('display-none');
+    // document.querySelector('#cancel-button').classList.remove('display-none');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    document.querySelector('#cancel-button').addEventListener('click', () => location.reload);
+    document.querySelector('#update-button').addEventListener('click', handlePostUpdate);
+})))
+
+}
+
+const handlePostUpdate = async () => {
   console.log('handlePostUpdate');
-  try {  
-    const id = event.target.getAttribute('data-id')
-    const currentData = await fetch(`/api/post/${id}`, {
-      method: 'GET'
-    });
-    console.log('currentData', currentData);
-    if (event.target.hasAttribute('data-id')) {
-      const id2 = event.target.getAttribute('data-id');
-      const response = await fetch(`/api/post/${id2}`, {
-        method: 'PUT',
-        body: JSON.stringify({ title, content }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-    }
+  const id = document.querySelector('#post-title').getAttribute('data-id');
+  let title = document.querySelector('#post-title').value
+  let content = document.querySelector('#post-content').value
+
+  try {
+    fetch(`/api/post/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ title, content }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(console.log('put request'))
+
   } catch (err) {
     console.log(err);
   }
 };
+
 document
   .querySelector('.new-post-form')
   .addEventListener('submit', newFormHandler);
 
 let postDeleteList = document.querySelectorAll('.post-delete');
-// let commentDeleteList = document.querySelectorAll('.comment-delete');
+let commentDeleteList = document.querySelectorAll('.comment-delete');
 
 postDeleteList.forEach(post => {
   post.addEventListener('click', postDeleteHandler);
 });
 
-// commentDeleteList.forEach(comment => {
-//   comment.addEventListener('click', commentDeleteHandler);
-// });
-
-let postUpdateList = document.querySelectorAll('.post-update');
-// let commentUpdateList = document.querySelectorAll('.comment-update');
-
-postUpdateList.forEach(post => {
-  post.addEventListener('click', handlePostUpdate)
+commentDeleteList.forEach(comment => {
+  comment.addEventListener('click', commentDeleteHandler);
 });
 
-// commentUpdateList.forEach(comment => {
-//   comment.addEventListener('click', handleCommentUpdate)
-// });
+let postUpdateList = document.querySelectorAll('.post-update');
+let commentUpdateList = document.querySelectorAll('.comment-update');
+
+postUpdateList.forEach(post => {
+  post.addEventListener('click', handleGetPost)
+});
+
+commentUpdateList.forEach(comment => {
+  comment.addEventListener('click', commentDeleteHandler)
+});
