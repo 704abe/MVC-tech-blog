@@ -19,6 +19,6 @@ SO THAT I can publish articles, blog posts, and my thoughts and opinions
 
 ## Links
 
-Deployed Application: 
+Deployed Application: https://mvctechblog-704abe.herokuapp.com/
 
 GitHub Repository: https://github.com/704abe/MVC-tech-blog
